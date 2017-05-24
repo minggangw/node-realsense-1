@@ -29,6 +29,7 @@ before_install:
   - sudo cp /tmp/Dockerfile ./tools/.docker/Dockerfile
   - sudo cp ./tools/install_realsense_pkgs.sh ./tools/.docker/
   - sudo docker build -t realsense ./tools/.docker
+  
 
 script:
   - sudo docker run -v $(pwd):/home/mrbuild/node-realsense --rm realsense bash -c "sudo -H -u mrbuild /home/mrbuild/node-realsense/tools/try_build_realsense_js.sh"
