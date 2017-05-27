@@ -22,7 +22,7 @@ class Extrinsics {
 
   Extrinsics(const Extrinsics& rhs);
 
-  ~Extrinsics();
+  virtual ~Extrinsics();
 
   Extrinsics& operator = (const Extrinsics& rhs);
 

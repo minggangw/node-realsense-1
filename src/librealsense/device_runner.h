@@ -9,12 +9,15 @@
 #include <string>
 #include <vector>
 
+#include "rs_extrinsics.h"
 #include "frame_data.h"
 #include "gen/mode.h"
 
 namespace rs {
 class device;
 }  // namespace rs
+
+class RSExtrinsics;
 
 class DeviceRunner {
  public:
@@ -37,6 +40,15 @@ class DeviceRunner {
   int GetFrameTimeStamp(const std::string& stream);
 
   void GetFrameDataFromRSFrame(rs::frame frame);
+  std::string GetUSBPortId();
+  std::string GetInfo(const std::string& info);
+  RSExtrinsics* GetExtrinsics(const std::string& from, const std::string& to);
+  RSExtrinsics* GetMotionExtrinsicsFrom(const std::string& from);
+  void DisableStream(const std::string& stream);
+  std::string GetStreamFormat(const std::string& stream);
+  int GetStreamFramerate(const std::string& stream);
+  int GetFrameNumber(const std::string& stream);
+
   void Start();
   void Stop();
 

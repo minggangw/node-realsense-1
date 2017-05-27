@@ -92,7 +92,7 @@ describe('Test Device interfaces', function() {
     });
   });
 
-  it('Enable stream', function() {
+  it('Enable/Disable stream', function() {
     return new Promise((resolve, reject) => {
       let mode = {
         width: 640,
@@ -103,9 +103,10 @@ describe('Test Device interfaces', function() {
 
       device.enableStream('color', mode).then(() => {
         device.isStreamEnabled('color').then((enable) => {
-          if (enable)
+          if (enable) {
             console.log('The color stream has been enabled.');
-          resolve();
+            resolve();
+          }
         });
       }).catch((e) => {
         reject(e);
@@ -187,6 +188,99 @@ describe('Test Device interfaces', function() {
         }).catch((e) => {
           reject(e);
         });
+      });
+    });
+  });
+
+  it('Get USB port Id', function() {
+    return new Promise((resolve, reject) => {
+      device.getUSBPortId().then((portId)=> {
+        console.log('The USB port Id is ' + portId);
+        resolve();
+      }).catch((e) => {
+        reject(e);
+      });
+    });
+  });
+
+  it('Get Camera Info', function() {
+    return new Promise((resolve, reject) => {
+      device.getInfo('device_name').then((info) => {
+        console.log('Camera info of device name is ' + info);
+        resolve();
+      }).catch((e) => {
+        reject(e);
+      });
+    });
+  });
+
+  it('Get extrinsics', function() {
+    return new Promise((resolve, reject) => {
+      device.getExtrinsics('color', 'depth').then((extrinsics) => {
+        console.log('rotation value is ' + extrinsics.rotation);
+        console.log('translation value is ' + extrinsics.translation);
+        console.log('identity is ' + extrinsics.isIdentity);
+        console.log('transform point (1, 1, 1) to ' + extrinsics.transform(new Float32Array([1, 1, 1])));
+        resolve();
+      }).catch((e) => {
+        reject(e);
+      });
+    });
+  });
+
+  it('Get stream format', function() {
+    return new Promise((resolve, reject) => {
+      device.getStreamFormat('color').then((format) => {
+        console.log('The color stream format is ' + format);
+        resolve();
+      }).catch((e) => {
+        reject(e);
+      });
+    });
+  });
+
+  it('Get stream framerate', function() {
+    return new Promise((resolve, reject) => {
+      device.getStreamFramerate('color').then((framerate) => {
+        console.log('The color stream framerate is ' + framerate);
+        resolve();
+      }).catch((e) => {
+        reject(e);
+      });
+    });
+  });
+
+  it('Get frame number', function() {
+    return new Promise((resolve, reject) => {
+      device.getFrameNumber('color').then((number) => {
+        console.log('The frame number is ' + number);
+        resolve();
+      }).catch((e) => {
+        reject(e);
+      });
+    });
+  });
+
+  it('Disable stream', function() {
+    return new Promise((resolve, reject) => {
+      device.disableStream('color').then(() => {
+        resolve();
+      }).catch((e) => {
+        reject(e);
+      });
+    });
+  });
+
+  it('Get motion extrinsics', function() {
+    return new Promise((resolve, reject) => {
+      device.getMotionExtrinsicsFrom('depth').then((extrinsics) => {
+        console.log('rotation value is ' + extrinsics.rotation);
+        console.log('translation value is ' + extrinsics.translation);
+        console.log('identity is ' + extrinsics.isIdentity);
+        console.log('transform point (1, 1, 1) to ' + extrinsics.transform(new Float32Array([1, 1, 1])));
+        resolve();
+      }).catch((e) => {
+        reject(e);
       });
     });
   });
